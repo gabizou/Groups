@@ -15,6 +15,7 @@
  */
 package com.afterkraft.groups;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 
@@ -74,16 +75,30 @@ public class PlayerListener implements Listener {
                         plugin.commandHandler.executeCommand(event.getPlayer(), "groups", "addto", new String[] { "?" });
                     }
                     newIdentifier = "addto";
-                    newArgs = Arrays.copyOfRange(args, 2, args.length);
+                    ArrayList<String> tempargs = new ArrayList<String>();
+                    tempargs.add("addto");
+                    tempargs.add(group.getName());
+                    tempargs.addAll(Arrays.asList(Arrays.copyOfRange(args, 2, args.length)));
+                    newArgs = new String[tempargs.size()];
+                    newArgs = tempargs.toArray(newArgs);
                 } else if (args[1].equalsIgnoreCase("remove") || args[1].equalsIgnoreCase("delete")) {
                     if (args.length < 2) {
                         plugin.commandHandler.executeCommand(event.getPlayer(), "groups", "removefrom", new String[] { "?" });
                     }
                     newIdentifier = "removefrom";
-                    newArgs = Arrays.copyOfRange(args, 2, args.length);
+                    ArrayList<String> tempargs = new ArrayList<String>();
+                    tempargs.add("removefrom");
+                    tempargs.add(group.getName());
+                    tempargs.addAll(Arrays.asList(Arrays.copyOfRange(args, 2, args.length)));
+                    newArgs = new String[tempargs.size()];
+                    newArgs = tempargs.toArray(newArgs);
                 } else if (args[1].equalsIgnoreCase("list")) {
                     newIdentifier = "listgroup";
-                    newArgs = Arrays.copyOfRange(args, 0, 1);
+                    ArrayList<String> tempargs = new ArrayList<String>();
+                    tempargs.add("listgroup");
+                    tempargs.add(group.getName());
+                    newArgs = new String[tempargs.size()];
+                    newArgs = tempargs.toArray(newArgs);
                 }
                 plugin.commandHandler.executeCommand(event.getPlayer(), "groups ", newIdentifier, newArgs);
             }
