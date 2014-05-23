@@ -69,22 +69,18 @@ public class GroupMember {
 
     public boolean addGroup(Group group) {
         if (group != null && !data.groupMap.containsKey(group.getName())) {
-            data.groupMap.put(group.getName(), group);
+            data.groupMap.put(group.getName(), group.getData());
             return true;
         }
         return false;
     }
 
     public Group getGroupByName(String groupName) {
-        return groupName != null ? data.groupMap.get(groupName) : null;
+        return groupName != null ? data.groupMap.containsKey(groupName) ? new Group(data.groupMap.get(groupName)) : null : null;
     }
 
     public boolean removeGroup(String groupName) {
         return groupName != null && data.groupMap.remove(groupName) != null;
-    }
-
-    public Set<Group> getGroups() {
-        return ImmutableSet.copyOf(data.groupMap.values());
     }
 
     public Set<String> getGroupNames() {
@@ -93,10 +89,6 @@ public class GroupMember {
 
     public PlayerData getData() {
         return data;
-    }
-
-    public PlayerData getDataClone() {
-        return data.clone();
     }
 
     @Override

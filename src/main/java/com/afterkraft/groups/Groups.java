@@ -31,8 +31,10 @@ import com.afterkraft.groups.commands.ListGroupCommand;
 import com.afterkraft.groups.commands.ListMemberCommand;
 import com.afterkraft.groups.commands.RemoveGroupCommand;
 import com.afterkraft.groups.commands.RemoveMemberCommand;
-import com.afterkraft.groups.groups.Group;
 import com.afterkraft.groups.groups.MemberManager;
+import com.afterkraft.groups.storage.GroupData;
+import com.afterkraft.groups.storage.GroupMemberInfo;
+import com.afterkraft.groups.storage.PlayerData;
 import com.afterkraft.groups.storage.StorageFrontend;
 import com.afterkraft.groups.storage.StorageManager;
 import com.afterkraft.groups.storage.YMLStorage;
@@ -40,6 +42,11 @@ import com.afterkraft.groups.util.ExternalProviderRegistration;
 
 public final class Groups extends JavaPlugin {
 
+    static {
+        ConfigurationSerialization.registerClass(GroupData.class, "groups-group-data");
+        ConfigurationSerialization.registerClass(PlayerData.class, "groups-player-data");
+        ConfigurationSerialization.registerClass(GroupMemberInfo.class, "group-member-info");
+    }
     private static boolean cancel = false;
     protected MemberManager memberManager;
     protected CommandHandler commandHandler;
@@ -82,7 +89,8 @@ public final class Groups extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        ConfigurationSerialization.registerClass(Group.class);
+        ConfigurationSerialization.registerClass(GroupData.class, "groups-group-data");
+        ConfigurationSerialization.registerClass(PlayerData.class, "groups-player-data");
         ExternalProviderRegistration.pluginLoaded(this);
         ExternalProviderRegistration.registerStorageBackend(new YMLStorage(this), "yml", "yaml");
     }

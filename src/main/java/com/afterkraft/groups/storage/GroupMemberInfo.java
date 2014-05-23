@@ -15,7 +15,6 @@
  */
 package com.afterkraft.groups.storage;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -23,52 +22,48 @@ import java.util.UUID;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.SerializableAs;
 
-@SerializableAs("groups-player-data")
-public class PlayerData implements Cloneable, ConfigurationSerializable {
-
-    public final Map<String, GroupData> groupMap = new HashMap<String, GroupData>();
+@SerializableAs("group-member")
+public class GroupMemberInfo implements Cloneable, ConfigurationSerializable {
+    public String name;
     public UUID playerID;
-    public String lastKnownName;
 
-    public PlayerData() {
+    public GroupMemberInfo() {
 
     }
 
-    public static PlayerData deserialize(Map<String, Object> map) {
-        PlayerData data = new PlayerData();
-        data.lastKnownName = (String) map.get("last-known-name");
-        data.playerID = UUID.fromString((String) map.get("playerID"));
-        return data;
+    public GroupMemberInfo(Map<String, Object> map) {
+        name = (String) map.get("playerName");
+        playerID = UUID.fromString((String) map.get("playerID"));
     }
 
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        map.put("last-known-name", lastKnownName);
+        map.put("playerName", name);
         map.put("playerID", playerID.toString());
         return map;
     }
 
     @Override
     public int hashCode() {
-        return this.playerID.hashCode();
+        return this.name.toLowerCase().hashCode() * this.playerID.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof PlayerData)) {
+        if (!(obj instanceof GroupMemberInfo)) {
             return false;
         } else {
-            PlayerData info = (PlayerData) obj;
-            return info.playerID.equals(this.playerID);
+            GroupMemberInfo info = (GroupMemberInfo) obj;
+            return info.name.equalsIgnoreCase(this.name) && info.playerID.equals(this.playerID);
         }
     }
 
-    public PlayerData clone() {
-        PlayerData cloned = new PlayerData();
-        cloned.playerID = playerID;
-        cloned.lastKnownName = lastKnownName;
-        cloned.groupMap.putAll(groupMap);
-        return cloned;
+    @Override
+    public GroupMemberInfo clone() {
+        GroupMemberInfo info = new GroupMemberInfo();
+        info.name = name;
+        info.playerID = playerID;
+        return info;
     }
 }

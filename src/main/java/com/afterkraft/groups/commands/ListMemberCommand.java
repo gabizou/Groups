@@ -15,10 +15,6 @@
  */
 package com.afterkraft.groups.commands;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,6 +22,7 @@ import org.bukkit.entity.Player;
 import com.afterkraft.groups.Groups;
 import com.afterkraft.groups.groups.Group;
 import com.afterkraft.groups.groups.GroupMember;
+import com.afterkraft.groups.storage.GroupMemberInfo;
 
 public class ListMemberCommand extends BasicCommand {
 
@@ -53,9 +50,8 @@ public class ListMemberCommand extends BasicCommand {
             return true;
         }
         String message = ChatColor.YELLOW + group.getName() + ChatColor.GREEN + ": ";
-        List<UUID> members = group.getMembers();
-        for (UUID temp : members) {
-            message += Bukkit.getOfflinePlayer(temp).getName() + " ";
+        for (GroupMemberInfo temp : group.getMembers()) {
+            message += temp.name + " ";
         }
         executor.sendMessage(message);
         return true;

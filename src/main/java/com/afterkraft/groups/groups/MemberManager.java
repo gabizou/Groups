@@ -33,16 +33,16 @@ public class MemberManager implements Manager {
 
     private final Groups plugin;
     private WeakHashMap<UUID, GroupMember> cachedMembers = new WeakHashMap<UUID, GroupMember>();
-    private CacheCleaningTask task;
+    private int id;
 
     public MemberManager(Groups plugin) {
         this.plugin = plugin;
-        Bukkit.getScheduler().runTaskTimer(plugin, task = new CacheCleaningTask(), 1000, 6000);
+        id = Bukkit.getScheduler().runTaskTimer(plugin, new CacheCleaningTask(), 1000, 6000).getTaskId();
     }
 
     public void shutdown() {
-        if (task != null) {
-            Bukkit.getScheduler().cancelTask(task.getTaskId());
+        if (id != 0) {
+            Bukkit.getScheduler().cancelTask(id);
         }
         for (GroupMember member : cachedMembers.values()) {
             plugin.getStorage().saveGroupMember(member);
