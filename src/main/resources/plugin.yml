@@ -1,0 +1,11 @@
+name: ${project.name}
+main: com.afterkraft.groups.Groups
+version: ${project.version}-b${BUILD_NUMBER}
+website: ${project.url}
+description: Allowing players to create groups for various purposes, such as friend lists or enemies
+authors: [gabizou]
+
+commands:
+  groups:
+    description: Root groups command
+    usage: /<command> <message>
