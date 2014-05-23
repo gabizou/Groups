@@ -62,7 +62,7 @@ public class CreateGroupCommand extends BasicCommand {
                     String name = args[i];
                     OfflinePlayer temp = Bukkit.getOfflinePlayer(name);
                     GroupMember tempMember;
-                    if (!temp.hasPlayedBefore() && !temp.isOnline()) {
+                    if (!temp.hasPlayedBefore() || !temp.isOnline()) {
                         try {
                             UUID uuid = UUIDFetcher.getUUIDOf(args[i]);
                             PlayerData data = new PlayerData();

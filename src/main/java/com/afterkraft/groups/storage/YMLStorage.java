@@ -59,7 +59,7 @@ public class YMLStorage implements StorageBackend {
         YamlConfiguration config = new YamlConfiguration();
 
         config.set("last-knwon-name", data.lastKnownName);
-        config.set("uniqueID", data.playerID);
+        config.set("uniqueID", data.playerID.toString());
         List<ConfigurationSerializable> list2 = new ArrayList<ConfigurationSerializable>(data.groupMap.values());
         config.set("groups", list2);
         try {
