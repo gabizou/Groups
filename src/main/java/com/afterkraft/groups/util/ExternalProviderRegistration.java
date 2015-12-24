@@ -18,6 +18,7 @@ package com.afterkraft.groups.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableMap;
 
 import com.afterkraft.groups.Groups;

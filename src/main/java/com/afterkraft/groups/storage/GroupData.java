@@ -50,6 +50,14 @@ public class GroupData implements Cloneable, ConfigurationSerializable {
         return data;
     }
 
+    public UUID getOwnerID() {
+        return ownerID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new LinkedHashMap<String, Object>();

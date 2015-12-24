@@ -102,7 +102,7 @@ public class Group {
     }
 
     public String getName() {
-        return this.data.name;
+        return this.data.getName();
     }
 
     public GroupMember getOwner() {
